@@ -72,17 +72,19 @@ begin
        RegClockCiv <= (others => '0');
        RegStart    <= '0';
        RegDataIn   <= (others => '0');
-     elsif RegStart = '1' then RegStart    <= '0';
-     elsif APBwirte = '1' then 
-          if APB_M_0_paddr(7 downto 0) = X"00" then RegStart  <= APB_M_0_pwdata(0);
-          elsif APB_M_0_paddr(7 downto 0) = X"08" then RegDataIn <= APB_M_0_pwdata;              
-          elsif APB_M_0_paddr(7 downto 0) = X"10" then RegClockCiv <= APB_M_0_pwdata(7 downto 0);
+     elsif rising_edge(clk) then
+        if RegStart = '1' then RegStart    <= '0';
+         elsif APBwirte = '1' then 
+            if APB_M_0_paddr(7 downto 0) = X"00" then RegStart  <= APB_M_0_pwdata(0);
+             elsif APB_M_0_paddr(7 downto 0) = X"08" then RegDataIn <= APB_M_0_pwdata;              
+             elsif APB_M_0_paddr(7 downto 0) = X"10" then RegClockCiv <= APB_M_0_pwdata(7 downto 0);
 --          case APB_M_0_paddr(7 downto 0) is
 --            when X"00" => RegStart  <= APB_M_0_pwdata(0);
 --            when X"08" => RegDataIn <= APB_M_0_pwdata;
 --            when X"10" => RegClockCiv <= APB_M_0_pwdata(7 downto 0);
 --          end case;  
-          end if; 
+            end if; 
+        end if; 
     end if; 
 end process;
 
