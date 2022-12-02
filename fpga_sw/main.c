@@ -12,7 +12,7 @@ int main()
     inMdata = 0x81234563;
     inSdata = 0x86543213;
 
-    APB[0x010/4] = 0x00000007;
+    APB[0x010/4] = 0x00000004;
     APB[0x008/4] = inMdata;
     APB[0x108/4] = inSdata;
     APB[0x00/4] = 0x1;

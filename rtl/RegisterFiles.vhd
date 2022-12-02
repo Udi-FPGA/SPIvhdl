@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 11/26/2022 10:22:43 AM
+-- Create Date: 12/02/2022 01:55:18 PM
 -- Design Name: 
 -- Module Name: RegisterFiles - Behavioral
 -- Project Name: 
@@ -51,16 +51,16 @@ entity RegisterFiles is
 end RegisterFiles;
 
 architecture Behavioral of RegisterFiles is
-
-signal RegClockCiv : STD_LOGIC_VECTOR (7 downto 0);
 signal RegStart    : STD_LOGIC;
 signal RegDataIn   : STD_LOGIC_VECTOR (31 downto 0);
+signal RegClockCiv : STD_LOGIC_VECTOR (7 downto 0);
+
+signal APBready : STD_LOGIC;
 
 signal APBtran  : STD_LOGIC;
 signal APBwirte : STD_LOGIC;
-signal APBready : STD_LOGIC;
-begin
 
+begin
 APBtran  <= APB_M_0_penable(0) and APB_M_0_psel(0);
 APBwirte <= APBtran and APB_M_0_pwrite(0);
 
@@ -113,5 +113,6 @@ APB_M_0_pslverr(0) <= '0';
 ClockCiv <= RegClockCiv ;
 Start    <= RegStart    ;
 DataIn   <= RegDataIn   ;
+
 
 end Behavioral;

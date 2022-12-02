@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 11/25/2022 08:02:31 PM
+-- Create Date: 12/02/2022 01:44:33 PM
 -- Design Name: 
 -- Module Name: SPI_tb - Behavioral
 -- Project Name: 

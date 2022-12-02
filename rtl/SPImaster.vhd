@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 11/25/2022 07:40:56 PM
+-- Create Date: 12/02/2022 01:39:54 PM
 -- Design Name: 
 -- Module Name: SPImaster - Behavioral
 -- Project Name: 
@@ -22,7 +22,6 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use ieee.std_logic_unsigned.all;
---use ieee.numeric_std.all;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -107,5 +106,6 @@ DataOut <= RegMISO;
 SCLK <= SPIclock when RegSS_n = '0' else '0';
 MOSI <= RegMOSI(31);
 SS_n <= RegSS_n;
+
 
 end Behavioral;

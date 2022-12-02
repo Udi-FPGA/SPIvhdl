@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 11/26/2022 11:36:01 AM
+-- Create Date: 12/02/2022 02:34:31 PM
 -- Design Name: 
 -- Module Name: ARTY_SPI_tb - Behavioral
 -- Project Name: 
@@ -32,6 +32,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity ARTY_SPI_tb is
+--  Port ( );
 end ARTY_SPI_tb;
 
 architecture Behavioral of ARTY_SPI_tb is

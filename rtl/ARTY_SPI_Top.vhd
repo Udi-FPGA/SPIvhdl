@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 11/25/2022 04:50:39 PM
+-- Create Date: 12/02/2022 02:14:20 PM
 -- Design Name: 
 -- Module Name: ARTY_SPI_Top - Behavioral
 -- Project Name: 
@@ -21,11 +21,10 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use ieee.std_logic_unsigned.all;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
-use IEEE.NUMERIC_STD.ALL;
+--use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
@@ -67,7 +66,6 @@ entity ARTY_SPI_Top is
 end ARTY_SPI_Top;
 
 architecture Behavioral of ARTY_SPI_Top is
-
 component ARTY_SPI_BD is 
     port (
     APB_M_0_paddr : out STD_LOGIC_VECTOR ( 31 downto 0 );
@@ -144,8 +142,8 @@ PORT (
 	clk : IN STD_LOGIC;
 
 	probe0 : IN STD_LOGIC_VECTOR(31 DOWNTO 0); 
-	probe1 : IN STD_LOGIC_VECTOR(31 DOWNTO 0); 
-	probe2 : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
+	probe1 : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
+	probe2 : IN STD_LOGIC_VECTOR(31 DOWNTO 0); 
 	probe3 : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
 	probe4 : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
 	probe5 : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
@@ -161,16 +159,21 @@ PORT (
 	probe15 : IN STD_LOGIC_VECTOR(0 DOWNTO 0)
 );
 END COMPONENT  ;
- 
-signal APB_M_0_paddr : STD_LOGIC_VECTOR ( 31 downto 0 );
-signal APB_M_0_penable : STD_LOGIC_VECTOR ( 0 to 0 );
-signal APB_M_0_psel : STD_LOGIC_VECTOR ( 0 to 0 );
-signal APB_M_0_pwdata : STD_LOGIC_VECTOR ( 31 downto 0 );
-signal APB_M_0_pwrite : STD_LOGIC_VECTOR ( 0 to 0 );
 
-signal APB_M_0_prdata : STD_LOGIC_VECTOR ( 31 downto 0 );
-signal APB_M_0_pready : STD_LOGIC_VECTOR ( 0 to 0 );
+signal clk : STD_LOGIC;
+signal rstn : STD_LOGIC_VECTOR ( 0 to 0 );
+
+signal APB_M_0_paddr   : STD_LOGIC_VECTOR ( 31 downto 0 );
+signal APB_M_0_penable : STD_LOGIC_VECTOR ( 0 to 0 );
+signal APB_M_0_prdata  : STD_LOGIC_VECTOR ( 31 downto 0 );
+signal APB_M_0_pready  : STD_LOGIC_VECTOR ( 0 to 0 );
+signal APB_M_0_psel    : STD_LOGIC_VECTOR ( 0 to 0 );
 signal APB_M_0_pslverr : STD_LOGIC_VECTOR ( 0 to 0 );
+signal APB_M_0_pwdata  : STD_LOGIC_VECTOR ( 31 downto 0 );
+signal APB_M_0_pwrite  : STD_LOGIC_VECTOR ( 0 to 0 );
+
+signal MasterPsel : STD_LOGIC_VECTOR ( 0 to 0 );
+signal SlavePsel : STD_LOGIC_VECTOR ( 0 to 0 );
 
 signal APB_M_0_Mprdata : STD_LOGIC_VECTOR ( 31 downto 0 );
 signal APB_M_0_Mpready : STD_LOGIC_VECTOR ( 0 to 0 );
@@ -178,11 +181,6 @@ signal APB_M_0_Mpslverr : STD_LOGIC_VECTOR ( 0 to 0 );
 signal APB_M_0_Sprdata : STD_LOGIC_VECTOR ( 31 downto 0 );
 signal APB_M_0_Spready : STD_LOGIC_VECTOR ( 0 to 0 );
 signal APB_M_0_Spslverr : STD_LOGIC_VECTOR ( 0 to 0 );
-
-signal clk : STD_LOGIC;
-signal rstn : STD_LOGIC_VECTOR ( 0 to 0 );
-signal MasterPsel : STD_LOGIC_VECTOR ( 0 to 0 );
-signal SlavePsel : STD_LOGIC_VECTOR ( 0 to 0 );
 
 signal inMSCLK :  STD_LOGIC;
 signal inMMOSI :  STD_LOGIC;
@@ -192,18 +190,18 @@ signal inSSCLK : STD_LOGIC;
 signal inSMOSI : STD_LOGIC;
 signal inSMISO :  STD_LOGIC;
 signal inSSS_n : STD_LOGIC;
-  
+
 begin
 ARTY_SPI_BD_0: component ARTY_SPI_BD
      port map (
-	APB_M_0_paddr(31 downto 0) => APB_M_0_paddr(31 downto 0),
-	APB_M_0_penable => APB_M_0_penable(0),
-	APB_M_0_prdata(31 downto 0) => APB_M_0_prdata(31 downto 0),
-	APB_M_0_pready(0 to 0) => APB_M_0_pready(0 to 0),
-	APB_M_0_psel(0 to 0) => APB_M_0_psel(0 to 0),
-	APB_M_0_pslverr(0 to 0) => APB_M_0_pslverr(0 to 0),
-	APB_M_0_pwdata(31 downto 0) => APB_M_0_pwdata(31 downto 0),
-	APB_M_0_pwrite => APB_M_0_pwrite(0),
+	APB_M_0_paddr(31 downto 0)  => APB_M_0_paddr  (31 downto 0),
+	APB_M_0_penable             => APB_M_0_penable(0),
+	APB_M_0_prdata(31 downto 0) => APB_M_0_prdata (31 downto 0),
+	APB_M_0_pready(0 to 0)      => APB_M_0_pready (0 to 0),
+	APB_M_0_psel(0 to 0)        => APB_M_0_psel   (0 to 0),
+	APB_M_0_pslverr(0 to 0)     => APB_M_0_pslverr(0 to 0),
+	APB_M_0_pwdata(31 downto 0) => APB_M_0_pwdata (31 downto 0),
+	APB_M_0_pwrite              => APB_M_0_pwrite (0),
 	DDR_addr(14 downto 0) => DDR_addr(14 downto 0),
 	DDR_ba(2 downto 0) => DDR_ba(2 downto 0),
 	DDR_cas_n => DDR_cas_n,
@@ -280,36 +278,26 @@ inSMOSI <=  SMOSI ;
 SMISO <=  inSMISO ;
 inSSS_n <=  SSS_n ;
 
---MSCLK <=  inMSCLK ;
---MMOSI <=  inMMOSI ;
---inMMISO <=  inSMISO ;
---MSS_n <=  inMSS_n ;
---inSSCLK <=  inMSCLK ;
---inSMOSI <=  inMMOSI ;
---SMISO <=  inSMISO ;
---inSSS_n <=  inMSS_n ;
-
-ila_0_INST : ila_0
+ila_0_inst : ila_0
 PORT MAP (
 	clk => clk,
 
-	probe0 => APB_M_0_paddr, 
-	probe1 => APB_M_0_prdata, 
-	probe2 => APB_M_0_penable, 
-	probe3 => APB_M_0_psel   , 
-	probe4 => APB_M_0_pready  , 
-	probe5 => APB_M_0_pslverr , 
-	probe6 => APB_M_0_pwdata,
-	probe7 => APB_M_0_pwrite,
-	probe8(0) =>  inMSCLK,
-	probe9(0) =>  inMMOSI,
+	probe0  => APB_M_0_paddr  , 
+	probe1  => APB_M_0_penable, 
+	probe2  => APB_M_0_prdata , 
+	probe3  => APB_M_0_pready , 
+	probe4  => APB_M_0_psel   , 
+	probe5  => APB_M_0_pslverr, 
+	probe6  => APB_M_0_pwdata , 
+	probe7  => APB_M_0_pwrite , 
+	probe8 (0) => inMSCLK,
+	probe9 (0) => inMMOSI,
 	probe10(0) => inMMISO, 
 	probe11(0) => inMSS_n, 
-	probe12(0) => inSSCLK,
-	probe13(0) => inSMOSI,
+	probe12(0) => inSSCLK, 
+	probe13(0) => inSMOSI, 
 	probe14(0) => inSMISO,
 	probe15(0) => inSSS_n
-	
 );
 
 end Behavioral;

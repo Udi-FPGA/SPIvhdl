@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 11/26/2022 11:17:02 AM
+-- Create Date: 12/02/2022 01:58:30 PM
 -- Design Name: 
 -- Module Name: Master - Behavioral
 -- Project Name: 
@@ -60,36 +60,35 @@ component RegisterFiles is
            APB_M_0_pslverr : out STD_LOGIC_VECTOR ( 0 to 0 );
            APB_M_0_pwdata  : in  STD_LOGIC_VECTOR ( 31 downto 0 );
            APB_M_0_pwrite  : in  STD_LOGIC_VECTOR ( 0 to 0 );
-           ClockCiv        : out STD_LOGIC_VECTOR (7 downto 0);
            Start           : out STD_LOGIC;
-           DataIn          : out STD_LOGIC_VECTOR (31 downto 0);
            Busy            : in  STD_LOGIC;
-           DataOut         : in  STD_LOGIC_VECTOR (31 downto 0)
+           DataIn          : out STD_LOGIC_VECTOR (31 downto 0);
+           DataOut         : in  STD_LOGIC_VECTOR (31 downto 0);
+           ClockCiv        : out STD_LOGIC_VECTOR (7 downto 0)
            );
 end component RegisterFiles;
 
 component SPImaster is
     Port ( clk      : in STD_LOGIC;
            rstn     : in STD_LOGIC;
-           ClockCiv : in STD_LOGIC_VECTOR (7 downto 0);
            Start    : in STD_LOGIC;
-           DataIn   : in STD_LOGIC_VECTOR (31 downto 0);
            Busy     : out STD_LOGIC;
+           DataIn   : in STD_LOGIC_VECTOR (31 downto 0);
            DataOut  : out STD_LOGIC_VECTOR (31 downto 0);
+           ClockCiv : in STD_LOGIC_VECTOR (7 downto 0);
            SCLK     : out STD_LOGIC;
            MOSI     : out STD_LOGIC;
            MISO     : in STD_LOGIC;
            SS_n     : out STD_LOGIC);
 end component SPImaster;
 
-signal ClockCiv : STD_LOGIC_VECTOR (7 downto 0);
 signal Start    : STD_LOGIC;
 signal DataIn   : STD_LOGIC_VECTOR (31 downto 0);
 signal Busy     :  STD_LOGIC;
 signal DataOut  :  STD_LOGIC_VECTOR (31 downto 0);
+signal ClockCiv : STD_LOGIC_VECTOR (7 downto 0);
 
 begin
-
 RegisterFiles_inst: component RegisterFiles 
     Port map( 
            clk             => clk             ,
@@ -102,22 +101,22 @@ RegisterFiles_inst: component RegisterFiles
            APB_M_0_pslverr => APB_M_0_pslverr ,
            APB_M_0_pwdata  => APB_M_0_pwdata  ,
            APB_M_0_pwrite  => APB_M_0_pwrite  ,
-           ClockCiv        => ClockCiv        ,
            Start           => Start           ,
-           DataIn          => DataIn          ,
            Busy            => Busy            ,
-           DataOut         => DataOut         
+           DataIn          => DataIn          ,
+           DataOut         => DataOut         ,
+           ClockCiv        => ClockCiv        
            );
 
 SPImaster_inst : component SPImaster 
     Port map( 
            clk      => clk      ,
            rstn     => rstn     ,
-           ClockCiv => ClockCiv ,
            Start    => Start    ,
-           DataIn   => DataIn   ,
            Busy     => Busy     ,
+           DataIn   => DataIn   ,
            DataOut  => DataOut  ,
+           ClockCiv => ClockCiv ,
            SCLK     => SCLK     ,
            MOSI     => MOSI     ,
            MISO     => MISO     ,

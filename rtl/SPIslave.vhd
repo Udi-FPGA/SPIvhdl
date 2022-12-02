@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 11/25/2022 07:40:56 PM
+-- Create Date: 12/02/2022 01:42:56 PM
 -- Design Name: 
 -- Module Name: SPIslave - Behavioral
 -- Project Name: 
@@ -22,7 +22,6 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use ieee.std_logic_unsigned.all;
---use ieee.numeric_std.all;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -81,4 +80,6 @@ Busy    <= not SS_n;
 DataOut <= RegMOSI;
 
 MISO <= RegMISO(31);
+
+
 end Behavioral;
