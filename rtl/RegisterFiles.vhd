@@ -56,8 +56,6 @@ signal RegClockCiv : STD_LOGIC_VECTOR (7 downto 0);
 signal RegStart    : STD_LOGIC;
 signal RegDataIn   : STD_LOGIC_VECTOR (31 downto 0);
 
-signal ReadData1 : STD_LOGIC_VECTOR (31 downto 0);
-signal ReadData2 : STD_LOGIC_VECTOR (31 downto 0);
 signal APBtran  : STD_LOGIC;
 signal APBwirte : STD_LOGIC;
 signal APBready : STD_LOGIC;
@@ -78,27 +76,11 @@ begin
             if APB_M_0_paddr(7 downto 0) = X"00" then RegStart  <= APB_M_0_pwdata(0);
              elsif APB_M_0_paddr(7 downto 0) = X"08" then RegDataIn <= APB_M_0_pwdata;              
              elsif APB_M_0_paddr(7 downto 0) = X"10" then RegClockCiv <= APB_M_0_pwdata(7 downto 0);
---          case APB_M_0_paddr(7 downto 0) is
---            when X"00" => RegStart  <= APB_M_0_pwdata(0);
---            when X"08" => RegDataIn <= APB_M_0_pwdata;
---            when X"10" => RegClockCiv <= APB_M_0_pwdata(7 downto 0);
---          end case;  
             end if; 
         end if; 
     end if; 
 end process;
 
---process (APBtran)
---begin
---    case (APB_M_0_paddr(7 downto 0)) is
---        when X"00"  =>  ReadData1 <= X"0000000" & "000" & RegStart; 
---        when X"04"  =>  ReadData1 <= X"0000000" & "000" & Busy; 
---        when X"08"  =>  ReadData1 <= RegDataIn; 
---        when X"0c"  =>  ReadData1 <= DataOut; 
---        when X"10"  =>  ReadData1 <= X"000000" & RegClockCiv; 
---        when others =>  ReadData1 <= X"00000000";
---    end case;
---end process;
 process (APBtran)
 begin
     case (APB_M_0_paddr(7 downto 0)) is
@@ -110,19 +92,18 @@ begin
         when others =>  APB_M_0_prdata <= X"00000000";
     end case;
 end process;
-ReadData2 <= X"0000000" & "000" & RegStart when APB_M_0_paddr(7 downto 0) = X"00" else 
 --APB_M_0_prdata <= X"0000000" & "000" & RegStart when APB_M_0_paddr(7 downto 0) = X"00" else 
-                  X"0000000" & "000" & Busy     when APB_M_0_paddr(7 downto 0) = X"04" else 
-                  RegDataIn                     when APB_M_0_paddr(7 downto 0) = X"08" else 
-                  DataOut                       when APB_M_0_paddr(7 downto 0) = X"0c" else 
-                  X"000000" & RegClockCiv       when APB_M_0_paddr(7 downto 0) = X"10" else  X"00000000";
---APB_M_0_prdata <= ReadData1;
+--                  X"0000000" & "000" & Busy     when APB_M_0_paddr(7 downto 0) = X"04" else 
+--                  RegDataIn                     when APB_M_0_paddr(7 downto 0) = X"08" else 
+--                  DataOut                       when APB_M_0_paddr(7 downto 0) = X"0c" else 
+--                  X"000000" & RegClockCiv       when APB_M_0_paddr(7 downto 0) = X"10" else  X"00000000";
 
 process (clk,rstn)
 begin
     if (rstn = '0') then
         APBready <= '0';
-     else APBready <= APBtran;
+     elsif rising_edge(clk) then
+                APBready <= APBtran;
     end if; 
 end process;
 

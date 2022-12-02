@@ -271,23 +271,23 @@ Slave_inst: component Slave
            SS_n            => inSSS_n           
            );
 
---MSCLK <=  inMSCLK ;
---MMOSI <=  inMMOSI ;
---inMMISO <=  MMISO ;
---MSS_n <=  inMSS_n ;
---inSSCLK <=  SSCLK ;
---inSMOSI <=  SMOSI ;
---SMISO <=  inSMISO ;
---inSSS_n <=  SSS_n ;
-
 MSCLK <=  inMSCLK ;
 MMOSI <=  inMMOSI ;
-inMMISO <=  inSMISO ;
+inMMISO <=  MMISO ;
 MSS_n <=  inMSS_n ;
-inSSCLK <=  inMSCLK ;
-inSMOSI <=  inMMOSI ;
+inSSCLK <=  SSCLK ;
+inSMOSI <=  SMOSI ;
 SMISO <=  inSMISO ;
-inSSS_n <=  inMSS_n ;
+inSSS_n <=  SSS_n ;
+
+--MSCLK <=  inMSCLK ;
+--MMOSI <=  inMMOSI ;
+--inMMISO <=  inSMISO ;
+--MSS_n <=  inMSS_n ;
+--inSSCLK <=  inMSCLK ;
+--inSMOSI <=  inMMOSI ;
+--SMISO <=  inSMISO ;
+--inSSS_n <=  inMSS_n ;
 
 ila_0_INST : ila_0
 PORT MAP (

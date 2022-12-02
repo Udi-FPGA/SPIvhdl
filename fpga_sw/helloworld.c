@@ -45,26 +45,32 @@
  *   ps7_uart    115200 (configured by bootrom/bsp)
  */
 
+#define SYNTH
 #include <stdio.h>
+#ifdef SYNTH
 #include "platform.h"
 #include "xil_printf.h"
+#endif
 
 int *APB = XPAR_APB_M_0_BASEADDR;
-
 
 int main()
 {
 	int inMdata, outMdata;
 	int inSdata, outSdata;
 	int Mbusy, Sbusy;
+#ifdef SYNTH
     init_platform();
 
     printf("Hello World\n\r");
+#endif
     inMdata = 0x81234563;
     inSdata = 0x86543213;
+#ifdef SYNTH
     printf("Master input %x Slave input %x\n\r",inMdata,inSdata);
+#endif
 
-    APB[0x010/4] = 0x00000007;
+    APB[0x010/4] = 0x00000004;
     APB[0x008/4] = inMdata;
     APB[0x108/4] = inSdata;
     APB[0x00/4] = 0x1;
@@ -78,9 +84,19 @@ int main()
     outMdata = APB[0x00c/4];
     outSdata = APB[0x10c/4];
 
-    printf("Master output %x Slave output %x\n\r",outMdata,outSdata);
-
-    printf("Successfully ran Hello World application");
+#ifdef SYNTH
+	if (outMdata == inSdata){
+    printf("Slave sent %x Master received %x PASS \n\r",inSdata,outMdata);
+	} else {
+    printf("ERROR : Slave sent %x Master received %x fail\n\r",inSdata,outMdata);
+	};
+	if (outSdata == inMdata){
+    printf("Master sent %x Slave received %x PASS \n\r",inMdata,outSdata);
+	} else {
+    printf("ERROR : Master sent %x Slave received %x fail\n\r",inMdata,outSdata);
+	};
+    printf("Successfully ran Hello World application\n\r");
     cleanup_platform();
+#endif
     return 0;
 }
