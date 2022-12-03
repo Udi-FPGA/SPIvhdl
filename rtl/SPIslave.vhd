@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 12/02/2022 01:42:56 PM
+-- Create Date: 12/02/2022 04:01:06 PM
 -- Design Name: 
 -- Module Name: SPIslave - Behavioral
 -- Project Name: 
@@ -80,6 +80,7 @@ Busy    <= not SS_n;
 DataOut <= RegMOSI;
 
 MISO <= RegMISO(31);
+
 
 
 end Behavioral;

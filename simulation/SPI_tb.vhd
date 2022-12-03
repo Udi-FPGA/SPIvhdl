@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 12/02/2022 01:44:33 PM
+-- Create Date: 12/02/2022 04:04:44 PM
 -- Design Name: 
 -- Module Name: SPI_tb - Behavioral
 -- Project Name: 
@@ -125,7 +125,6 @@ end process;
            MISO     =>  MISO    ,
            SS_n     =>  SS_n    
            );
-
 
 
 end Behavioral;

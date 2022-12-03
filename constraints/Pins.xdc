@@ -14,4 +14,3 @@ set_property IOSTANDARD LVCMOS33 [get_ports SMISO]
 set_property IOSTANDARD LVCMOS33 [get_ports SMOSI]
 set_property IOSTANDARD LVCMOS33 [get_ports SSCLK]
 set_property IOSTANDARD LVCMOS33 [get_ports SSS_n]
-

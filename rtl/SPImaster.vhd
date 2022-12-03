@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 12/02/2022 01:39:54 PM
+-- Create Date: 12/02/2022 03:57:54 PM
 -- Design Name: 
 -- Module Name: SPImaster - Behavioral
 -- Project Name: 
@@ -106,6 +106,7 @@ DataOut <= RegMISO;
 SCLK <= SPIclock when RegSS_n = '0' else '0';
 MOSI <= RegMOSI(31);
 SS_n <= RegSS_n;
+
 
 
 end Behavioral;

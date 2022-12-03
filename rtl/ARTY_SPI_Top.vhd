@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 12/02/2022 02:14:20 PM
+-- Create Date: 12/02/2022 04:28:04 PM
 -- Design Name: 
 -- Module Name: ARTY_SPI_Top - Behavioral
 -- Project Name: 
@@ -278,9 +278,11 @@ inSMOSI <=  SMOSI ;
 SMISO <=  inSMISO ;
 inSSS_n <=  SSS_n ;
 
-ila_0_inst : ila_0
+your_instance_name : ila_0
 PORT MAP (
 	clk => clk,
+
+
 
 	probe0  => APB_M_0_paddr  , 
 	probe1  => APB_M_0_penable, 

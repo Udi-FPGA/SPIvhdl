@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 12/02/2022 01:58:30 PM
+-- Create Date: 12/02/2022 04:18:03 PM
 -- Design Name: 
 -- Module Name: Master - Behavioral
 -- Project Name: 
@@ -32,7 +32,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity Master is
-    Port ( clk : in STD_LOGIC;
+   Port ( clk : in STD_LOGIC;
            rstn : in STD_LOGIC;
            APB_M_0_paddr   : in  STD_LOGIC_VECTOR ( 31 downto 0 );
            APB_M_0_penable : in  STD_LOGIC_VECTOR ( 0 to 0 );
@@ -122,6 +122,7 @@ SPImaster_inst : component SPImaster
            MISO     => MISO     ,
            SS_n     => SS_n     
            );
+
 
 
 end Behavioral;

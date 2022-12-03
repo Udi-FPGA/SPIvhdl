@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 12/02/2022 02:34:31 PM
+-- Create Date: 12/02/2022 04:56:37 PM
 -- Design Name: 
 -- Module Name: ARTY_SPI_tb - Behavioral
 -- Project Name: 
@@ -55,7 +55,6 @@ signal MISO : STD_LOGIC;
 signal SS_n :  STD_LOGIC;
 
 begin
-
 ARTY_SPI_Top_inst: component ARTY_SPI_Top 
   port map(
       MSCLK => SCLK,
@@ -67,5 +66,6 @@ ARTY_SPI_Top_inst: component ARTY_SPI_Top
       SMISO => MISO,
       SSS_n => SS_n
 );
+
 
 end Behavioral;

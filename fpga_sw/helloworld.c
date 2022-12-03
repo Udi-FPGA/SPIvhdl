@@ -48,10 +48,8 @@
 #include <stdio.h>
 #include "platform.h"
 #include "xil_printf.h"
-#include "xparameters.h"
 
 int *APB = XPAR_APB_M_0_BASEADDR;
-
 
 int main()
 {
@@ -90,6 +88,7 @@ int main()
 	} else {
     printf("ERROR : Master sent %x Slave received %x fail\n\r",inMdata,outSdata);
 	};
+
     print("Successfully ran Hello World application\n\r");
     cleanup_platform();
     return 0;

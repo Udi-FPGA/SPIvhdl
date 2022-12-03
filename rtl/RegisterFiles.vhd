@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 12/02/2022 01:55:18 PM
+-- Create Date: 12/02/2022 04:10:13 PM
 -- Design Name: 
 -- Module Name: RegisterFiles - Behavioral
 -- Project Name: 
@@ -67,6 +67,15 @@ APBwirte <= APBtran and APB_M_0_pwrite(0);
 process (clk,rstn)
 begin
     if (rstn = '0') then
+        APBready <= '0';
+     elsif rising_edge(clk) then
+                APBready <= APBtran;
+    end if; 
+end process;
+
+process (clk,rstn)
+begin
+    if (rstn = '0') then
        RegClockCiv <= (others => '0');
        RegStart    <= '0';
        RegDataIn   <= (others => '0');
@@ -80,7 +89,7 @@ begin
         end if; 
     end if; 
 end process;
-
+    
 process (APBtran)
 begin
     case (APB_M_0_paddr(7 downto 0)) is
@@ -92,20 +101,6 @@ begin
         when others =>  APB_M_0_prdata <= X"00000000";
     end case;
 end process;
---APB_M_0_prdata <= X"0000000" & "000" & RegStart when APB_M_0_paddr(7 downto 0) = X"00" else 
---                  X"0000000" & "000" & Busy     when APB_M_0_paddr(7 downto 0) = X"04" else 
---                  RegDataIn                     when APB_M_0_paddr(7 downto 0) = X"08" else 
---                  DataOut                       when APB_M_0_paddr(7 downto 0) = X"0c" else 
---                  X"000000" & RegClockCiv       when APB_M_0_paddr(7 downto 0) = X"10" else  X"00000000";
-
-process (clk,rstn)
-begin
-    if (rstn = '0') then
-        APBready <= '0';
-     elsif rising_edge(clk) then
-                APBready <= APBtran;
-    end if; 
-end process;
 
 APB_M_0_pready(0) <= APBready;
 APB_M_0_pslverr(0) <= '0';
@@ -113,6 +108,5 @@ APB_M_0_pslverr(0) <= '0';
 ClockCiv <= RegClockCiv ;
 Start    <= RegStart    ;
 DataIn   <= RegDataIn   ;
-
 
 end Behavioral;
