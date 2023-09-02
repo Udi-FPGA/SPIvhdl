@@ -278,7 +278,7 @@ inSMOSI <=  SMOSI ;
 SMISO <=  inSMISO ;
 inSSS_n <=  SSS_n ;
 
-your_instance_name : ila_0
+ila_0_inst : ila_0
 PORT MAP (
 	clk => clk,
 
